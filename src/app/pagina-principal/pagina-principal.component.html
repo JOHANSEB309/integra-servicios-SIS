@@ -1,0 +1,397 @@
+<head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+  <link
+    href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    rel="stylesheet"
+    id="bootstrap-css"
+  />
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+</head>
+<body>
+  <div id="apartadosPrincipales">
+    <nav role="navegacion">
+      <div class="py-3 text-center border-bottom" id="principio">
+        <img src="../assets/Integra Servicios.png" alt="" class="invert" />
+        <div class="login_icon">
+          <i
+            class="fa-solid fa-user fa-beat fa-2x"
+            style="color: #ffffff"
+            routerLink="/login"
+          ></i>
+        </div>
+      </div>
+    </nav>
+    <div class="navbar-expand-md">
+      <div class="navbar-dark text-center my-2">
+        <button
+          class="navbar-toggler w-75"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+          <span class="align-middle">Menu</span>
+        </button>
+      </div>
+      <div
+        class="text-center mt-3 collapse navbar-collapse"
+        id="navbarNavDropdown"
+      >
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              aria-current="page"
+              (click)="scrollTo('apartadosPrincipales')"
+              >Inicio</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="scrollTo('categorias')">Prestamos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/administrar-reservas"
+              >Administra tus reservas</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="scrollTo('dk-footer')">Contactanos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slides">
+    <div class="slide slide-1">
+      <img src="../assets/Slide_1.png" alt="" />
+    </div>
+
+    <div class="slide slide-2">
+      <img src="../assets/Slide_2.png" alt="" />
+    </div>
+    <div class="slide slide-3">
+      <img src="../assets/Slide_3.png" alt="" />
+    </div>
+    <div class="slide slide-4">
+      <img src="../assets/Slide_4.png" alt="" />
+    </div>
+  </div>
+  <div class="categorias" id="categorias">
+    <h2>Categorias disponibles</h2>
+
+    <div class="container bootstrap snipets">
+      <div class="row flow-offset-1">
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('DZA')"
+              ><img
+                src="../assets/sala_danzas.jpeg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Salas de danza</h6>
+              <a (click)="guardarSeleccion('DZA')"> style="cursor: pointer;"
+                <span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('LAQ')"
+              ><img
+                src="../assets/lab_quimica.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Laboratorios de Quimica</h6>
+              <a (click)="guardarSeleccion('LAQ')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('AUD')"
+              ><img
+                src="../assets/auditorios.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Auditorios</h6>
+              <a (click)="guardarSeleccion('AUD')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('FUT')"
+              ><img
+                src="../assets/cancha_futbol.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Canchas de futbol</h6>
+              <a (click)="guardarSeleccion('FUT')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('LAI')"
+              ><img
+                src="../assets/SalaInformatica.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Laboratorios de informatica</h6>
+              <a (click)="guardarSeleccion('LAI')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('LAF')"
+              ><img
+                src="../assets/lab_fisica.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Laboratorios de fisica</h6>
+              <a (click)="guardarSeleccion('LAF')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('LIB')"
+              ><img src="../assets/Libros.jpg" alt="" width="350" height="280"
+            /></a>
+            <div class="caption">
+              <h6>Prestamo de libros</h6>
+              <a (click)="guardarSeleccion('LIB')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('PCS')"
+              ><img
+                src="../assets/Computador.jpg"
+                alt=""
+                width="350"
+                height="280"
+            /></a>
+            <div class="caption">
+              <h6>Prestamo de computadores</h6>
+              <a (click)="guardarSeleccion('PCS')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="product tumbnail thumbnail-3">
+            <a (click)="guardarSeleccion('TAB')"
+              ><img src="../assets/Tablets.jpg" alt="" width="350" height="280"
+            /></a>
+            <div class="caption">
+              <h6>Prestamo de tablets</h6>
+              <a (click)="guardarSeleccion('TAB')" style="cursor: pointer;"
+                ><span class="price">Ver espacios disponibles</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer id="dk-footer" class="dk-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-4">
+        <div class="dk-footer-box-info">
+          <a href="index.html" class="footer-logo">
+            <img
+              src="../assets/LogoCompleto_NoFondo.png"
+              alt="footer_logo"
+              class="img-fluid"
+            />
+          </a>
+        </div>
+        <div class="footer-awarad">
+          <p>Servicio de reservas de recursos de la Universidad Distrital</p>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="contact-us">
+              <div class="contact-icon">
+                <i class="fa fa-map-o" aria-hidden="true"></i>
+              </div>
+              <div class="contact-info">
+                <h3>Bogotá Colombia</h3>
+                <p>Cra #8 Calle 40</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="contact-us contact-us-last">
+              <div class="contact-icon">
+                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+              </div>
+              <div class="contact-info">
+                <h3>320 2089540</h3>
+                <p>Telefono de Contacto</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-6">
+            <div class="footer-widget footer-left-widget">
+              
+              <ul>
+                <li>
+                  <a href="#">Acerca de nosotros</a>
+                </li>
+                <li>
+                  <a href="#">Servicios</a>
+                </li>
+                <li>
+                  <a href="#">Proyectos</a>
+                </li>
+                <li>
+                  <a href="#">Nuestro equipo</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="#">Contactanos</a>
+                </li>
+                <li>
+                  <a href="#">Blog</a>
+                </li>
+                <li>
+                  <a href="#">Reseñas</a>
+                </li>
+                <li>
+                  <a href="#">Preguntas frecuentes</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <div class="footer-widget">
+              
+              <p>
+                Suscribete para conocer las ultimas novedades y actualizaciones
+                del servicio de Integra Servicios.
+              </p>
+              <form action="#">
+                <div class="form-row">
+                  <div class="col dk-footer-form">
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Correo electronico"
+                    />
+                    <button type="submit">
+                      <i class="fa fa-send"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <span>Copyright © 2024, All Right Reserved Team Meta</span>
+        </div>
+        <div class="col-md-6">
+          <div class="copyright-menu">
+            <ul>
+              <li>
+                <a href="#">Inicio</a>
+              </li>
+              <li>
+                <a href="#">Prestamos</a>
+              </li>
+              <li>
+                <a href="#">Acerca de nosotros</a>
+              </li>
+              <li>
+                <a href="#">Contacto</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="back-to-top" class="back-to-top">
+    <button
+      class="btn btn-dark"
+      title="Volver al inicio"
+      style="display: block"
+      (click)="scrollTo('principio')"
+    >
+      <i class="fa fa-angle-up"></i>
+    </button>
+  </div>
+</footer>
