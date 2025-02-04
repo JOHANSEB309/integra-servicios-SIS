@@ -36,6 +36,11 @@ body {
     background: #8c1919;
     
   }
+
+  #principio img{
+    width: 20%;
+  height: auto;
+  }
   #navbarNavDropdown.collapsing .navbar-nav,
   #navbarNavDropdown.show .navbar-nav{
     /*background:#8c1919;*/
