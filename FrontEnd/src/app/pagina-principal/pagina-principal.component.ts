@@ -24,18 +24,19 @@ export class PaginaPrincipalComponent {
   }
 
   guardarSeleccion(dato : string){
-      
+      let selec;
       if(dato == 'DZA'){
         this.datoTraducido = 'Salas de Danza'
       }else if(dato == 'AUD'){
-        this.datoTraducido = 'Auditorios'
+        this.datoTraducido = 'Auditorio'
+        selec ='Auditorio'
       }else if(dato == 'LAQ'){
         this.datoTraducido = 'Laboratorios de Quimica'
       }else if(dato == 'LAF'){
-        this.datoTraducido = 'Laboratorios de Fisica'
+        this.datoTraducido = 'Laboratorio'
       }else if(dato == 'LAI'){
         this.datoTraducido = 'Laboratorios de Informatica'
-      }else if(dato == 'FUT'){
+      }else if(dato == 'Cancha'){
         this.datoTraducido = 'Canchas de Futbol'
       }else if(dato == 'LIB'){
         this.datoTraducido = 'Libros'
@@ -48,7 +49,7 @@ export class PaginaPrincipalComponent {
       const datoSeleccion = { 
         seleccion: dato
       }
-      this.http.post("http://127.0.0.1:8000/categoriaSeleccionada",datoSeleccion).subscribe(
+      this.http.get("https://backend-integraservicios.onrender.com/consultarRecursos").subscribe(
       {
         next: res =>{
           this.mostrarError("Envio exitoso!!!!"),

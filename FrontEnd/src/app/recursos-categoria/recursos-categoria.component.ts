@@ -30,7 +30,7 @@ export class RecursosCategoriaComponent {
       this.router.navigate(['/login'])
     }
     this.seleccionCategoria.currentMessage.subscribe(message => this.message = message);
-    this.http.get<categoriaSeleccionadaResponse>("http://127.0.0.1:8000/listaCategoriaSeleccionada").subscribe(
+    this.http.get<categoriaSeleccionadaResponse>("https://backend-integraservicios.onrender.com/consultarRecursos/").subscribe(
       {
         next:(res)=>{
           this.listaRecursos = res.data

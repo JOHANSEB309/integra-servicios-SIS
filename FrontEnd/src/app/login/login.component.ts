@@ -32,7 +32,7 @@ export class LoginComponent {
 
   revisarLogIn(){
     this.hayError = false;
-    this.http.post<LogResponse>("http://127.0.0.1:8000/validate",this.formularioLogin.value).subscribe(
+    this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validate/",this.formularioLogin.value).subscribe(
       {
         next: res => this.completarLogIn(res.codigo,res.message),
         error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
