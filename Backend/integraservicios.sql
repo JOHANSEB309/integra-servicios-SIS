@@ -59,6 +59,8 @@ CREATE TABLE Empleado (
     ID_Empleado SERIAL PRIMARY KEY,
     Nombre VARCHAR(100) NOT NULL,
     Cargo VARCHAR(50) NOT NULL
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Contrasena VARCHAR(255) NOT NULL
 );
 
 -- Datos de prueba
@@ -94,9 +96,9 @@ INSERT INTO Reserva (ID_Usuario, ID_Recurso, Fecha_Reserva, Hora_Reserva, Estado
 
 -- Empleados
 INSERT INTO Empleado (Nombre, Cargo) VALUES
-('Carlos Gómez', 'Recepcionista'),
-('Ana Martínez', 'Encargada de Recursos'),
-('Luis Fernández', 'Supervisor');
+('Carlos Gómez', 'Recepcionista','carlos.gomez@example.com', 'carlos123'),
+('Ana Martínez', 'Encargada de Recursos','ana.martinez@example.com', 'anamart123'),
+('Luis Fernández', 'Supervisor','luis.fernandez@example.com', 'ferluis123');
 
 -- Préstamos
 INSERT INTO Prestamo (ID_Reserva, ID_Empleado, Fecha_Prestamo, Hora_Prestamo) VALUES
