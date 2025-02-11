@@ -132,6 +132,40 @@ class ConexionBD:
             return False
         finally:
             conexion.close()
+
+    @staticmethod
+    def validarLoginEmpleado(correo, contrasena):
+        """
+        Valida el login de un usuario comparando la contraseña encriptada.
+        """
+        conexion = ConexionBD.conectar()
+        if not conexion:
+            return False
+
+        try:
+            cursor = conexion.cursor()
+            query = "SELECT id_empleado, contrasena FROM empleado WHERE email = %s"
+            cursor.execute(query, (correo,))
+            result = cursor.fetchone()  # Obtiene una fila con (id_usuario, contrasena)
+
+            if result:
+                id_empleado, contrasena_encriptada = result  # Extrae los valores correctamente
+                
+                # Verificar la contraseña
+                if PasswordHandler.verificar_contrasena(contrasena, contrasena_encriptada):
+                    ConexionBD.idUsuarioValido = id_empleado
+                    token = TokenHandler.generar_token(id_empleado)
+                    return token 
+
+            return False  # Si no hay resultado o la contraseña es incorrecta
+
+        except Exception as e:
+            print("Error en validarLogin:", e)
+            return False
+        finally:
+            conexion.close()
+
+    
     @staticmethod
     def registrarUsuario(nombre, email, telefono, contrasena):
         """
