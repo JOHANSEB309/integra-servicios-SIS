@@ -51,6 +51,11 @@ class Devolucion(BaseModel):
     hora_devolucion: time
     id_empleado: int
     
+class Empleado(BaseModel):
+    id_empleado: int
+    nombre: str
+    email: str
+    contrasena: str
 
 
 app = FastAPI()
@@ -78,6 +83,16 @@ async def validate_user(l: Login):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post('/validateEmpleado')
+async def validate_empleado(l: Login):
+    try:
+        token = ConexionBD.validarLoginEmpleado(l.correo, l.contrasena)
+        if token:
+            return {"message": "Logeado correctamente", "token": token}
+        else:
+            raise HTTPException(status_code=404, detail="El correo o la contraseña son incorrectos")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post('/registrarUsuario')
 async def registrar_usuario(usuario: Usuario):
