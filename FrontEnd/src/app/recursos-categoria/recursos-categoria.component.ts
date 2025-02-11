@@ -33,8 +33,17 @@ export class RecursosCategoriaComponent {
     this.http.get<categoriaSeleccionadaResponse>("https://backend-integraservicios.onrender.com/consultarRecursos/").subscribe(
       {
         next:(res)=>{
+          console.log("Respuesta completa:", res);
           this.listaRecursos = res.data
           console.log(this.listaRecursos)
+
+          if (Array.isArray(res.data)) {
+            this.listaRecursos = res.data;
+            console.log("Si es un array")
+          } else {
+            console.error("La respuesta no es un array:", res.data);
+          }
+          
         },
         error: (error) => {
           console.log(error)

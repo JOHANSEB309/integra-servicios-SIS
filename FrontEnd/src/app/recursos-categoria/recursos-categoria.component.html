@@ -76,22 +76,17 @@
               <th scope="col">Reservar</th>
             </tr>
           </thead>
-          <tbody *ngFor="let recurso of listaRecursos">
-            <tr scope="row">
-              <td>{{ recurso[0] }}</td>
+          <tbody>
+            <tr *ngFor="let recurso of listaRecursos">
+              <td>{{ recurso.id_recurso }}</td>
               <td>
-                {{ recurso[8] }}
-                <small class="d-block">Descripcion: {{ recurso[9] }}</small>
-                <small class="d-block">Detalles: {{ recurso[3] }}</small>
-                <small class="d-block"
-                  >Capacidad - Cantidad: {{ recurso[2] }}</small
-                >
+                {{ recurso.nombre }}
+                <small class="d-block">Descripción: {{ recurso.tipo_recurso }}</small>
               </td>
               <td>
-                {{ recurso[6] }}<br />
-                - <br />{{ recurso[7] }}
+                {{ recurso.horario_disponibilidad }}
               </td>
-              <td>{{ recurso[10] }}</td>
+              <td>{{ recurso.estado }}</td> 
               <td>
                 <form novalidate [formGroup]="formulario">
                   <small class="d-block"
