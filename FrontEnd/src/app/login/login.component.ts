@@ -39,6 +39,15 @@ export class LoginComponent {
       })
   }
 
+  revisarLogInEmpleado(){
+    this.hayError = false;
+    this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validateEmpleado/",this.formularioLogin.value).subscribe(
+      {
+        next: res => this.completarLogIn(res.codigo,res.message),
+        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
+      })
+  }
+
   async completarLogIn(code:number,message:string){
     this.responseCode = code
     this.mensajeErrorLogin = message
