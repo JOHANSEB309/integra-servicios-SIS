@@ -8,7 +8,7 @@ import { AdministrarReservasComponent } from './administrar-reservas/administrar
 
 const routes: Routes = [ 
 {path: '',component: PaginaPrincipalComponent},
-{path_ 'principal-empleado',component: PaginaPrincipalEmpleadoComponent}
+{path: 'principal-empleado',component: PaginaPrincipalEmpleadoComponent},
 {path: 'recursos-categoria',component: RecursosCategoriaComponent},
 {path: 'login',component: LoginComponent},
 {path: 'administrar-reservas',component: AdministrarReservasComponent}];
