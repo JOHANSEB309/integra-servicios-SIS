@@ -66,7 +66,7 @@ export class RecursosCategoriaComponent {
     }
     this.hayError = false
     console.log(datosFormulario)
-    this.http.post("http://127.0.0.1:8000/agregarReserva",datosFormulario).subscribe(
+    this.http.post("https://backend-integraservicios.onrender.com//agregarReserva",datosFormulario).subscribe(
       {
         next: res => this.mostrarError("Envio exitoso!!!!"),
         error: err => this.mostrarError("Error al reservar")
