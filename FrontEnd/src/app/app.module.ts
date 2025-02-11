@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PaginaPrincipalComponent } from './pagina-principal/pagina-principal.component';
+import { PaginaPrincipalEmpleadoComponent } from './pagina-principal/pagina-principal-empleado.component';
 import { LoginComponent } from './login/login.component';
 import { RecursosCategoriaComponent } from './recursos-categoria/recursos-categoria.component';
 import { AdministrarReservasComponent } from './administrar-reservas/administrar-reservas.component';
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     PaginaPrincipalComponent,
+    PaginaPrincipalEmpleadoComponent,
     LoginComponent,
     RecursosCategoriaComponent,
     AdministrarReservasComponent
