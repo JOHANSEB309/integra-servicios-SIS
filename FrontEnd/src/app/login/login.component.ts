@@ -80,7 +80,7 @@ export class LoginComponent {
     }
     this.hayError = false
     console.log(datosFormularioRegistro)
-    this.http.post("http://127.0.0.1:8000/agregarUsuario",datosFormularioRegistro).subscribe(
+    this.http.post("https://backend-integraservicios.onrender.com/registrarUsuario",datosFormularioRegistro).subscribe(
       {
         next: res => this.mostrarError("Envio exitoso!!!!"),
         error: err => this.mostrarError("Error al enviar el formulario")
