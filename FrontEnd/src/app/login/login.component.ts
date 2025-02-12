@@ -1,103 +1,121 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AdminService } from '../admin.service';
-import { LogResponse } from '../modelos/responses';
+import { HttpClient } from "@angular/common/http";
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AdminService } from "../admin.service";
+import { LogResponse } from "../modelos/responses";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+   selector: "app-login",
+   templateUrl: "./login.component.html",
+   styleUrl: "./login.component.css",
 })
 export class LoginComponent {
-  formularioRegistro: FormGroup;
-  formularioLogin: FormGroup;
-  hayError: boolean = false;
-  mensajeErrorLogin:string;
-  mensajeErrorRegistro:string;
-  responseCode:number;
+   formularioRegistro: FormGroup;
+   formularioLogin: FormGroup;
+   hayError: boolean = false;
+   mensajeErrorLogin: string;
+   mensajeErrorRegistro: string;
+   responseCode: number;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private adminServicio:AdminService) {
+   constructor(
+      private http: HttpClient,
+      private fb: FormBuilder,
+      private router: Router,
+      private adminServicio: AdminService
+   ) {}
 
-  }
+   ngOnInit() {
+      if (this.adminServicio.hayUsuarioLogeado) {
+         this.router.navigate(["/"]);
+      }
+      this.crearFormularioRegistro();
+      this.crearFormularioLogin();
+   }
 
-  ngOnInit() {
-    if(this.adminServicio.hayUsuarioLogeado){
-      this.router.navigate(['/'])
-    }
-    this.crearFormularioRegistro();
-    this.crearFormularioLogin();
-  }
+   revisarLogIn() {
+      this.hayError = false;
+      this.http
+         .post<{ codigo: number; message: string; id_usuario: number }>(
+            "http://127.0.0.1:8000/validate/",
+            this.formularioLogin.value
+         )
+         .subscribe({
+            next: (res) =>
+               this.completarLogIn(res.codigo, res.message, res.id_usuario),
+            error: (err) =>
+               this.completarLogIn(
+                  404,
+                  "Hubo un error con el servidor, Inténtalo nuevamente",
+                  null
+               ),
+         });
+   }
 
-  revisarLogIn(){
-    this.hayError = false;
-    this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validate/",this.formularioLogin.value).subscribe(
-      {
-        next: res => this.completarLogIn(res.codigo,res.message, res.rol = 0),
-        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente",0)
-      })
-  }
+   async completarLogIn(
+      code: number,
+      message: string,
+      idUsuario: number | null
+   ) {
+      this.responseCode = code;
+      this.mensajeErrorLogin = message;
+      if (this.responseCode == 404) {
+         this.hayError = true;
+      } else {
+         if (idUsuario) {
+            this.adminServicio.logearUsuario(idUsuario); // ✅ Guardamos el ID del usuario logueado
+            this.router.navigate(["/"]);
+         }
+      }
+   }
 
-  revisarLogInEmpleado(){
-    this.hayError = false;
-    this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validateEmpleado/",this.formularioLogin.value).subscribe(
-      {
-        next: res => this.completarLogIn(res.codigo,res.message, res.rol = 1),
-        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente",0)
-      })
-  }
+   crearFormularioLogin() {
+      this.formularioLogin = this.fb.group({
+         correo: [
+            "",
+            Validators.compose([Validators.required, Validators.email]),
+         ],
+         contrasena: ["", Validators.required],
+      });
+   }
 
-  async completarLogIn(code:number,message:string,rol:number){
-    this.responseCode = code
-    this.mensajeErrorLogin = message
-    if(this.responseCode ==404){
-      this.hayError = true
-    }else if (rol == 0) {
-      this.adminServicio.logearUsuario()
-      this.router.navigate(['/'])
-    } else {
-      this.adminServicio.logearUsuario()
-      this.router.navigate(['/pagina-proncipal-empleado'])
-    }
-  }
+   registrarse() {
+      const datosFormularioRegistro = {
+         nombre: this.formularioRegistro.value.nombre,
+         email: this.formularioRegistro.value.email,
+         telefono: this.formularioRegistro.value.telefono,
+         contrasena: this.formularioRegistro.value.contrasena,
+      };
+      this.hayError = false;
+      console.log(datosFormularioRegistro);
+      this.http
+         .post(
+            "http://127.0.0.1:8000/registrarUsuario",
+            datosFormularioRegistro
+         )
+         .subscribe({
+            next: (res) => {
+               console.log("Respuesta del backend:", res); // 🔍 Debug para ver la respuesta
+               this.mostrarError("Registro exitoso!");
+            },
+            error: (err) => {
+               console.log("Respuesta del backend:", err); // 🔍 Debug para ver la respuesta
+               this.mostrarError("Error al enviar el formulario");
+            },
+         });
+   }
 
+   mostrarError(mensaje: string) {
+      this.hayError = true;
+      this.mensajeErrorRegistro = mensaje;
+   }
 
-
-  crearFormularioLogin(){
-    this.formularioLogin = this.fb.group({
-      correo:['', Validators.compose([Validators.required,Validators.email])],
-      contrasena:['',Validators.required]
-    })
-  }
-
-  registrarse(){
-    const datosFormularioRegistro = {
-      nombre:this.formularioRegistro.value.nombre,
-      telefono: this.formularioRegistro.value.telefono,
-      correoElectronico: this.formularioRegistro.value.correoElectronico,
-      contrasena: this.formularioRegistro.value.contrasena
-    }
-    this.hayError = false
-    console.log(datosFormularioRegistro)
-    this.http.post("http://127.0.0.1:8000/agregarUsuario",datosFormularioRegistro).subscribe(
-      {
-        next: res => this.mostrarError("Envio exitoso!!!!"),
-        error: err => this.mostrarError("Error al enviar el formulario")
-      })
-  }
-
-  mostrarError(mensaje:string){
-    this.hayError = true
-    this.mensajeErrorRegistro = mensaje
-  }
-
-  crearFormularioRegistro() {
-    this.formularioRegistro = this.fb.group({
-      nombre: ['', Validators.required],
-      telefono: ['', Validators.required],
-      correoElectronico: ['', Validators.required],
-      contrasena: ['', Validators.required]
-    })
-  }
+   crearFormularioRegistro() {
+      this.formularioRegistro = this.fb.group({
+         nombre: ["", Validators.required],
+         email: ["", Validators.required],
+         telefono: ["", Validators.required],
+         contrasena: ["", Validators.required],
+      });
+   }
 }

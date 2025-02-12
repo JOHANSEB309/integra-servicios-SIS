@@ -53,12 +53,6 @@
             value="Iniciar sesion"
             (click)="revisarLogIn()"
           />
-          <input
-            type="button"
-            class="button"
-            value="Iniciar sesion Empleado"
-            (click)="revisarLogInEmpleado()"
-          />
         </form>
         <div class="signup">
           <span class="signup"
@@ -83,14 +77,14 @@
             formControlName="nombre"
           />
           <input
+            type="email"
+            placeholder="Ingrese su correo electronico"
+            formControlName="email"
+          />
+          <input
             type="text"
             placeholder="Ingrese su numero de telefono"
             formControlName="telefono"
-          />
-          <input
-            type="email"
-            placeholder="Ingrese su correo electronico"
-            formControlName="correoElectronico"
           />
           <input
             type="password"
