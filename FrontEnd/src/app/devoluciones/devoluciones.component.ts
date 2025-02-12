@@ -10,7 +10,7 @@ import { historialReservaResponse, reservaActivaResponse } from '../modelos/resp
   templateUrl: './devoluciones.component.html',
   styleUrl: './devoluciones.component.css'
 })
-export class AdministrarReservasComponent {
+export class DevolucionesComponent {
 
   listaReservaActiva : Array<any>
   listaHistorialReserva: Array<any>
