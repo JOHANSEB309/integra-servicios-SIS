@@ -61,7 +61,7 @@
     </div>
     <div class="content">
       <div class="container">
-        <h2 class="mb-5">{{ message }} - Recursos Disponibles</h2>
+        <h2 class="mb-5">Recursos Disponibles PrograNova</h2>
   
         <div class="table-responsive custom-table-responsive">
           <table class="table custom-table">
@@ -70,10 +70,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Horario Disponible</th>
-                <th scope="col">Disponibilidad</th>
-                <th scope="col">Fecha a Reservar</th>
-                <th scope="col">Hora a Reservar</th>
-                <th scope="col">Reservar</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -84,70 +81,68 @@
                   <small class="d-block">Descripción: {{ recurso.tipo_recurso }}</small>
                 </td>
                 <td>
-                  {{ recurso.horario_disponibilidad }}
+                    <li *ngFor="let horario of recurso.horario_disponibilidad">
+                        {{ horario }}
+                      </li>
                 </td>
-                <td>{{ recurso.estado }}</td> 
-                <td>
-                  <form novalidate [formGroup]="formulario">
-                    <small class="d-block"
-                      >Selecciona la fecha de la reserva</small
-                    >
-                    <input
-                      type="date"
-                      id="fecha"
-                      name="fecha"
-                      formControlName="fechaReserva"
-                    />
-                  </form>
-                </td>
-                <td>
-                  <form novalidate [formGroup]="formulario">
-                    <small class="d-block"
-                      >Selecciona la hora de inicio de la reserva</small
-                    >
-                    <input
-                      type="time"
-                      id="appt"
-                      name="appt"
-                      min="{{ recurso[6] }}"
-                      max="{{ recurso[7] }}"
-                      formControlName="inicioReserva"
-                      required
-                    />
-  
-                    <small class="d-block"
-                      >Selecciona la hora de fin de la reserva</small
-                    >
-                    <input
-                      type="time"
-                      id="appt"
-                      min="{{ recurso[6] }}"
-                      max="{{ recurso[7] }}"
-                      formControlName="finReserva"
-                      required
-                    />
-                  </form>
-                </td>
-                <td>
-                  <form [formGroup]="formulario">
-                    <button
-                      class="button-3"
-                      role="button"
-                      (click)="reservar(recurso[0])"
-                    >
-                      Reservar Recurso
-                    </button>
-                  </form>
-                </td>
+               
+                
+                
+                
               </tr>
               <tr class="spacer">
                 <td colspan="100"></td>
               </tr>
             </tbody>
           </table>
+          <a href="https://progranovaintegraserviciosback-production.up.railway.app/integraservicios/api/external?id=1" class="btn-reserva" target="_blank">
+            Reserva Ahora
+          </a>
         </div>
       </div>
     </div>
+
+
+    <div class="content">
+        <div class="container">
+          <h2 class="mb-5">Recursos Disponibles NextCode</h2>
+    
+          <div class="table-responsive custom-table-responsive">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Horario Disponible</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let recurso of nuestra">
+                  <td>{{ recurso.id_recurso }}</td>
+                  <td>
+                    {{ recurso.nombre }}
+                    <small class="d-block">Descripción: {{ recurso.tipo_recurso }}</small>
+                  </td>
+                  <td>
+                    <li *ngFor="let horario of recurso.horario_disponibilidad">
+                        {{ horario }}
+                      </li>
+                  </td>
+                  <td>{{ recurso.estado }}</td> 
+                  
+                  
+                  
+                </tr>
+                <tr class="spacer">
+                  <td colspan="100"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
   </body>
   <footer>
     <div id="back-to-top" class="back-to-top">

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { categoriaSeleccionadaResponse } from '../modelos/responses';
+import { ApiResponseV2 } from '../modelos/responses';
 
 @Component({
   selector: 'app-integracion',
@@ -13,6 +14,7 @@ import { categoriaSeleccionadaResponse } from '../modelos/responses';
 export class IntegracionComponent {
   
   listaRecursos : Array<any>
+  nuestra : Array<any>
   message: string = ''
   formulario: FormGroup;
   hayError: boolean = false;
@@ -23,47 +25,38 @@ export class IntegracionComponent {
   }
   
   ngOnInit(): void {
-    
-    this.router.navigate(['/integracion'])
-    
-      
-    this.http.get<categoriaSeleccionadaResponse>("https://backend-integraservicios.onrender.com/api/recursosDisponibles").subscribe(
-      {
-        next:(res)=>{
-          console.log("Respuesta completa:", res);
-          this.listaRecursos = res.recursos_disponibles
-          console.log(this.listaRecursos)
-
-          if (Array.isArray(res.data)) {
-            this.listaRecursos = res.data;
-            console.log("Si es un array")
-          } else {
-            console.error("La respuesta no es un array:", res.data);
-          }
-          
+    this.router.navigate(['/integracion']);
+  
+    // Hacer la primera petición
+    this.http.get<ApiResponseV2>("https://progranovaintegraserviciosback-production.up.railway.app/integraservicios/api/external?id=1")
+      .subscribe({
+        next: (res) => {
+          console.log("Respuesta de la primera API:", res);
+          this.listaRecursos = res.data.recursos_disponibles;
+          console.log("Lista de recursos primera API:", this.listaRecursos);
         },
         error: (error) => {
-          console.log(error)
+          console.log("Error en la primera API:", error);
         }
-      })
-      this.crearFormulario();
+      });
+  
+    // Hacer la segunda petición
+    this.http.get<categoriaSeleccionadaResponse>("https://backend-integraservicios.onrender.com/api/recursosDisponibles")
+      .subscribe({
+        next: (res) => {
+          console.log("Respuesta de la segunda API:", res);
+          this.nuestra = res.recursos_disponibles; // Cambiado a 'res.recursos_disponibles'
+          console.log("Lista de recursos segunda API:", this.nuestra);
+        },
+        error: (error) => {
+          console.log("Error en la segunda API:", error);
+        }
+      });
+  
+    // Crear el formulario una vez
+    this.crearFormulario();
   }
 
-  reservar(dato:string){
-    const datosFormulario = {
-      idRecurso: dato,
-      fechaReserva:this.formulario.value.fechaReserva,
-      inicioReserva: this.formulario.value.inicioReserva,
-      finReserva: this.formulario.value.finReserva
-    }
-    this.hayError = false
-    console.log(datosFormulario)
-    this.http.post("https://backend-integraservicios.onrender.com//agregarReserva",datosFormulario).subscribe(
-      {
-        next: res => this.mostrarError("Envio exitoso!!!!"),
-        error: err => this.mostrarError("Error al reservar")
-      })
-  }
   
   scrollTo(section: string) {
     document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });

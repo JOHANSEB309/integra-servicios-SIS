@@ -75,7 +75,7 @@ body {
     
     .custom-table {
       min-width: 900px; }
-      .custom-table thead tr, .custom-table thead th {
+      .custom-table thead tr, .custom-table thead th, .custom-table thead li{
         border-top: none;
         border-bottom: none !important;
         color: #fff; }
@@ -186,7 +186,30 @@ body {
       background-color: #007bff;
       opacity: .2;
       border: 2px solid #007bff; }
-
+      .btn-reserva {
+        display: inline-block;
+        background-color: #4CAF50;  /* Verde */
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, box-shadow 0.3s;
+      }
+      
+      .btn-reserva:hover {
+        background-color: #45a049;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+      }
+      
+      .btn-reserva:active {
+        background-color: #3e8e41;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        transform: translateY(2px);
+      }
+      
 .button-3 {
   appearance: none;
   background-color: #2ea44f;

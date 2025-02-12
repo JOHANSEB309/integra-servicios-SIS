@@ -24,3 +24,11 @@ export interface historialReservaResponse{
 export interface reservaSeleccionadaResponse{
     data:Array<any>
 }
+
+export interface ApiResponseV2 {
+    status: boolean;
+    message: string;
+    data: {
+      recursos_disponibles: Array<any>;
+    };
+  }
