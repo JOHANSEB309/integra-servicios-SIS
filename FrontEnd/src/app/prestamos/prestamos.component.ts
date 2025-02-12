@@ -14,7 +14,7 @@ import { reservaActivaResponse } from '../modelos/responses';
 
 export class PrestamosComponent {
 
-  listaReservaActiva : Array<any>
+  listaHistorialReserva : Array<any>
   hayError: boolean = false;
   mensajeError:string;
 
@@ -35,8 +35,8 @@ export class PrestamosComponent {
     this.http.get<reservaActivaResponse>("http://127.0.0.1:8000/listaReservaActiva").subscribe(
       {
         next:(res)=>{
-          this.listaReservaActiva = res.data
-          console.log(this.listaReservaActiva)
+          this.listaHistorialReserva = res.data
+          console.log(this.listaHistorialReserva)
         },
         error: (error) => {
           console.log(error)

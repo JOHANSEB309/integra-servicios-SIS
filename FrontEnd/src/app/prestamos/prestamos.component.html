@@ -76,25 +76,12 @@
               <th scope="col">Registrar Préstamo</th>
             </tr>
           </thead>
-          <tbody *ngFor="let reserva of listaReservaActiva">
-            <tr scope="row">
-              <td>{{ reserva[0] }}</td>
-              <td>{{ reserva[1] }}</td>
-              <td>{{ reserva[2] }}</td>
-              <td>{{ reserva[3] }}</td>
-              <td>{{ reserva[4] }}</td>
-              <td>
-                <button class="button-3" (click)="registrarPrestamo(reserva[0])">Registrar Préstamo</button>
-              </td>
-            </tr>
-            <tr class="spacer">
-              <td colspan="100"></td>
-            </tr>
-          </tbody>
+          
         </table>
       </div>
     </div>
-    </div>
+    
+   
     <div class="container">
       <div class="historial" id="historial">
         <h2 class="mb-5">Historial de prestamos</h2>
@@ -135,6 +122,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </body>
 <footer>

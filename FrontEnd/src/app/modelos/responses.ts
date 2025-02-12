@@ -3,6 +3,7 @@ export interface estampaResponse{
 }
 
 export interface LogResponse{
+    rol: number
     message:string
     codigo:number
 }

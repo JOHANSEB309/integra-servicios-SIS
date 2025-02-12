@@ -35,7 +35,7 @@ export class LoginComponent {
     this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validate/",this.formularioLogin.value).subscribe(
       {
         next: res => this.completarLogIn(res.codigo,res.message, res.rol = 0),
-        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
+        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente",0)
       })
   }
 
@@ -44,7 +44,7 @@ export class LoginComponent {
     this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validateEmpleado/",this.formularioLogin.value).subscribe(
       {
         next: res => this.completarLogIn(res.codigo,res.message, res.rol = 1),
-        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
+        error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente",0)
       })
   }
 
