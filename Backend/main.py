@@ -273,7 +273,7 @@ async def obtener_reservas_vigentes(id_usuario: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post('/registrarPrestamo')
+@app.post('/registrarPrestamo/{id_reserva}')
 async def registrar_prestamo(prestamo: Prestamo, authorization: str = Header(None)):
     """
     Registra un préstamo validando el token JWT y que el empleado esté registrado.

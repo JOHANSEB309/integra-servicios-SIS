@@ -3,57 +3,46 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
-import { historialReservaResponse, reservaActivaResponse } from '../modelos/responses';
+import { PrestamoService } from '../prestamo.service';
+import { reservaActivaResponse } from '../modelos/responses';
 
 @Component({
   selector: 'app-prestamos',
   templateUrl: './prestamos.component.html',
   styleUrl: './prestamos.component.css'
 })
+
 export class PrestamosComponent {
 
-  prestamoForm : FormGroup
+  listaReservaActiva : Array<any>
   hayError: boolean = false;
   mensajeError:string;
 
-  constructor(private fb: FormBuilder, private prestamoService: Prestamos, private router: Router) {
-    this.prestamoForm = this.fb.group({
-      id_reserva: ['', Validators.required],
-      id_empleado: ['', Validators.required],
-      fecha_prestamo: ['', Validators.required],
-      hora_prestamo: ['', Validators.required]
-    });
+  constructor(private http : HttpClient,private  fb:FormBuilder, private router:Router, private adminServicio:AdminService, private PrestamoService: PrestamoService){
+
   }
   
   ngOnInit(): void {
 
     if(this.adminServicio.hayUsuarioLogeado){
-      this.router.navigate(['/prestamos'])
+      this.obtenerReservasActivas();
     }else{
       this.router.navigate(['/login'])
     }
-
   }
 
-  registrarPrestamo() {
-    if (this.prestamoForm.valid) {
-      this.prestamoService.registrarPrestamo(this.prestamoForm.value).subscribe({
-        next: (res) => {
-          alert('Préstamo registrado exitosamente');
-          this.router.navigate(['/pagina-principal-empleado']); // Redirigir a otra página si es necesario
+  obtenerReservasActivas(){
+    this.http.get<reservaActivaResponse>("http://127.0.0.1:8000/listaReservaActiva").subscribe(
+      {
+        next:(res)=>{
+          this.listaReservaActiva = res.data
+          console.log(this.listaReservaActiva)
         },
-        error: (err) => {
-          this.hayError = true;
-          this.mensajeError = 'Error al registrar el préstamo';
-          console.error(err);
+        error: (error) => {
+          console.log(error)
         }
-      });
-    } else {
-      this.hayError = true;
-      this.mensajeError = 'Por favor, completa todos los campos requeridos';
-    }
+      })
   }
-
 
   mostrarError(mensaje:string){
     this.hayError = true
