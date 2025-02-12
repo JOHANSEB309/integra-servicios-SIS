@@ -1,67 +1,69 @@
-import { Component } from '@angular/core';
-import { SeleccionCategoriaService } from '../seleccion-categoria.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { SeleccionCategoriaService } from "../seleccion-categoria.service";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-pagina-principal',
-  templateUrl: './pagina-principal.component.html',
-  styleUrl: './pagina-principal.component.css'
+   selector: "app-pagina-principal",
+   templateUrl: "./pagina-principal.component.html",
+   styleUrl: "./pagina-principal.component.css",
 })
 export class PaginaPrincipalComponent {
+   mensajeError: string;
+   responseCode: number;
+   hayError: boolean = false;
+   datoTraducido: string;
 
-  mensajeError:string;
-  responseCode:number;
-  hayError:boolean = false;
-  datoTraducido: string;
+   constructor(
+      private seleccionCategoria: SeleccionCategoriaService,
+      private http: HttpClient,
+      private router: Router
+   ) {}
 
-  constructor(private seleccionCategoria: SeleccionCategoriaService, private http:HttpClient, private router:Router){
-      
-  }
+   scrollTo(section: string) {
+      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
+   }
 
-  scrollTo(section: string) {
-      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
-  }
+   guardarSeleccion(dato: string) {
+      let selec: string;
 
-  guardarSeleccion(dato : string){
-      let selec;
-      if(dato == 'DZA'){
-        this.datoTraducido = 'Salas de Danza'
-      }else if(dato == 'AUD'){
-        this.datoTraducido = 'Auditorio'
-        selec ='Auditorio'
-      }else if(dato == 'LAQ'){
-        this.datoTraducido = 'Laboratorios de Quimica'
-      }else if(dato == 'LAF'){
-        this.datoTraducido = 'Laboratorio'
-      }else if(dato == 'LAI'){
-        this.datoTraducido = 'Laboratorios de Informatica'
-      }else if(dato == 'Cancha'){
-        this.datoTraducido = 'Canchas de Futbol'
-      }else if(dato == 'LIB'){
-        this.datoTraducido = 'Libros'
-      }else if(dato == 'PCS'){
-        this.datoTraducido = 'Computadoras'
-      }else if(dato == 'TAB'){
-        this.datoTraducido = 'Tablets'
-      }
+      // Mapeamos los códigos a nombres de categorías
+      const categorias: Record<string, string> = {
+         DZA: "Sala de Danza",
+         AUD: "Auditorio",
+         LAQ: "Laboratorio de Química",
+         LAF: "Laboratorio de Física",
+         LAI: "Laboratorio de Informática",
+         FUT: "Cancha Deportiva",
+         LIB: "Libros",
+         PCS: "Computadoras",
+         TAB: "Tablets",
+      };
+
+      this.datoTraducido = categorias[dato] || "Categoría Desconocida";
       this.seleccionCategoria.changeMessage(this.datoTraducido);
-      const datoSeleccion = { 
-        seleccion: dato
-      }
-      this.http.get("https://backend-integraservicios.onrender.com/consultarRecursos").subscribe(
-      {
-        next: res =>{
-          this.mostrarError("Envio exitoso!!!!"),
-          this.router.navigate(['/recursos-categoria'])
-        },
-        error: err => this.mostrarError("Error al enviar la categoria seleccionada")
-      })
 
-    }
+      // Enviamos la categoría al backend
+      this.http
+         .get(
+            `https://backend-integraservicios.onrender.com/consultarRecursos?tipo=${this.datoTraducido}`
+         )
+         .subscribe({
+            next: (res) => {
+               console.log("Recursos obtenidos:", res);
+               this.router.navigate(["/recursos-categoria"], {
+                  queryParams: { tipo: this.datoTraducido },
+               });
+            },
+            error: (err) => {
+               console.error("Error al obtener recursos:", err);
+               this.mostrarError("Error al enviar la categoría seleccionada");
+            },
+         });
+   }
 
-    mostrarError(mensaje:string){
-      this.hayError = true
-      this.mensajeError = mensaje
-    }
+   mostrarError(mensaje: string) {
+      this.hayError = true;
+      this.mensajeError = mensaje;
+   }
 }
