@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AdministrarReservasComponent } from './administrar-reservas/administrar-reservas.component';
 import { PrestamosComponent } from './prestamos/prestamos.component';
 import { DevolucionesComponent } from './devoluciones/devoluciones.component';
+import { IntegracionComponent } from './integracion/integracion.component';
 
 const routes: Routes = [ 
 {path: '',component: PaginaPrincipalComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
 {path: 'login',component: LoginComponent},
 {path: 'administrar-reservas',component: AdministrarReservasComponent},
 {path: 'prestamos',component: PrestamosComponent},
-{path: 'devoluciones',component: DevolucionesComponent}
+{path: 'devoluciones',component: DevolucionesComponent},
+{path: 'integracion',component: IntegracionComponent}
 ];
 
 @NgModule({

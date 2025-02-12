@@ -10,6 +10,7 @@ export interface LogResponse{
 
 export interface categoriaSeleccionadaResponse{
     data:Array<any>
+    recursos_disponibles:Array<any>
 }
 
 export interface reservaActivaResponse{
