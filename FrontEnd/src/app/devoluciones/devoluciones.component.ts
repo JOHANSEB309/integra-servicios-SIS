@@ -6,9 +6,9 @@ import { AdminService } from '../admin.service';
 import { historialReservaResponse, reservaActivaResponse } from '../modelos/responses';
 
 @Component({
-  selector: 'app-administrar-reservas',
-  templateUrl: './administrar-reservas.component.html',
-  styleUrl: './administrar-reservas.component.css'
+  selector: 'app-devoluciones',
+  templateUrl: './devoluciones.component.html',
+  styleUrl: './devoluciones.component.css'
 })
 export class AdministrarReservasComponent {
 

@@ -34,7 +34,7 @@ export class LoginComponent {
     this.hayError = false;
     this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validate/",this.formularioLogin.value).subscribe(
       {
-        next: res => this.completarLogIn(res.codigo,res.message),
+        next: res => this.completarLogIn(res.codigo,res.message, res.rol = 0),
         error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
       })
   }
@@ -43,20 +43,22 @@ export class LoginComponent {
     this.hayError = false;
     this.http.post<LogResponse>("https://backend-integraservicios.onrender.com/validateEmpleado/",this.formularioLogin.value).subscribe(
       {
-        next: res => this.completarLogIn(res.codigo,res.message),
+        next: res => this.completarLogIn(res.codigo,res.message, res.rol = 1),
         error: err => this.completarLogIn(404,"Hubo un Error con el servidor, Intentalo nuevamente")
       })
   }
 
-  async completarLogIn(code:number,message:string){
+  async completarLogIn(code:number,message:string,rol:number){
     this.responseCode = code
     this.mensajeErrorLogin = message
     if(this.responseCode ==404){
       this.hayError = true
-    }else{
+    }else if (rol == 0) {
       this.adminServicio.logearUsuario()
       this.router.navigate(['/'])
-      
+    } else {
+      this.adminServicio.logearUsuario()
+      this.router.navigate(['/pagina-proncipal-empleado'])
     }
   }
 

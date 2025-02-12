@@ -5,13 +5,18 @@ import { PaginaPrincipalEmpleadoComponent } from './pagina-principal-empleado/pa
 import { RecursosCategoriaComponent } from './recursos-categoria/recursos-categoria.component';
 import { LoginComponent } from './login/login.component';
 import { AdministrarReservasComponent } from './administrar-reservas/administrar-reservas.component';
+import { PrestamosComponent } from './prestamos/prestamos.component';
+import { DevolucionesComponent } from './devoluciones/devoluciones.component';
 
 const routes: Routes = [ 
 {path: '',component: PaginaPrincipalComponent},
 {path: 'principal-empleado',component: PaginaPrincipalEmpleadoComponent},
 {path: 'recursos-categoria',component: RecursosCategoriaComponent},
 {path: 'login',component: LoginComponent},
-{path: 'administrar-reservas',component: AdministrarReservasComponent}];
+{path: 'administrar-reservas',component: AdministrarReservasComponent},
+{path: 'prestamos',component: PrestamosComponent},
+{path: 'devoluciones',component: DevolucionesComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -6,11 +6,11 @@ import { AdminService } from '../admin.service';
 import { historialReservaResponse, reservaActivaResponse } from '../modelos/responses';
 
 @Component({
-  selector: 'app-administrar-reservas',
-  templateUrl: './administrar-reservas.component.html',
-  styleUrl: './administrar-reservas.component.css'
+  selector: 'prestamos-reservas',
+  templateUrl: './prestamos.component.html',
+  styleUrl: './prestamos.component.css'
 })
-export class AdministrarReservasComponent {
+export class PrestamosComponent {
 
   listaReservaActiva : Array<any>
   listaHistorialReserva: Array<any>
