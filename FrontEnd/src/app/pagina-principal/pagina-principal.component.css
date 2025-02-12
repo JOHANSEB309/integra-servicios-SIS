@@ -253,13 +253,14 @@ z-index: 2; }
 .dk-footer-box-info {
 position: absolute;
 top: -90px;
-background: #202020;
+background: #ffffff;
 padding: 40px;
 z-index: 2; }
 .dk-footer-box-info .footer-social-link h3 {
   color: #fff;
   font-size: 24px;
-  margin-bottom: 25px; }
+  border-width: 1 px;
+}
 .dk-footer-box-info .footer-social-link ul {
   list-style-type: none;
   padding: 0;
