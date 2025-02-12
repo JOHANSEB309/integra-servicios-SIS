@@ -5,24 +5,23 @@ import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-pagina-principal',
-  templateUrl: './pagina-principal.component.html',
-  styleUrl: './pagina-principal.component.css'
+   selector: "app-pagina-principal",
+   templateUrl: "./pagina-principal.component.html",
+   styleUrl: "./pagina-principal.component.css",
 })
 export class PaginaPrincipalComponent {
-
-  mensajeError:string;
-  responseCode:number;
-  hayError:boolean = false;
-  datoTraducido: string;
+   mensajeError: string;
+   responseCode: number;
+   hayError: boolean = false;
+   datoTraducido: string;
 
   constructor(private seleccionCategoria: SeleccionCategoriaService, private http:HttpClient, private router:Router, private adminServicio:AdminService){
       
   }
 
-  scrollTo(section: string) {
-      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
-  }
+   scrollTo(section: string) {
+      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
+   }
 
   perfil(){
     if(this.adminServicio.hayUsuarioLogeado){
@@ -54,22 +53,28 @@ export class PaginaPrincipalComponent {
         this.datoTraducido = 'Tablets'
       }
       this.seleccionCategoria.changeMessage(this.datoTraducido);
-      const datoSeleccion = { 
-        seleccion: dato
-      }
-      this.http.get("https://backend-integraservicios.onrender.com/consultarRecursos").subscribe(
-      {
-        next: res =>{
-          this.mostrarError("Envio exitoso!!!!"),
-          this.router.navigate(['/recursos-categoria'])
-        },
-        error: err => this.mostrarError("Error al enviar la categoria seleccionada")
-      })
 
-    }
+      // Enviamos la categoría al backend
+      this.http
+         .get(
+            `https://backend-integraservicios.onrender.com/consultarRecursos?tipo=${this.datoTraducido}`
+         )
+         .subscribe({
+            next: (res) => {
+               console.log("Recursos obtenidos:", res);
+               this.router.navigate(["/recursos-categoria"], {
+                  queryParams: { tipo: this.datoTraducido },
+               });
+            },
+            error: (err) => {
+               console.error("Error al obtener recursos:", err);
+               this.mostrarError("Error al enviar la categoría seleccionada");
+            },
+         });
+   }
 
-    mostrarError(mensaje:string){
-      this.hayError = true
-      this.mensajeError = mensaje
-    }
+   mostrarError(mensaje: string) {
+      this.hayError = true;
+      this.mensajeError = mensaje;
+   }
 }
