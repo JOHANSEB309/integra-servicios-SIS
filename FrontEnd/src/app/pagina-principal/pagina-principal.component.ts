@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SeleccionCategoriaService } from '../seleccion-categoria.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-pagina-principal',
@@ -15,7 +16,7 @@ export class PaginaPrincipalComponent {
   hayError:boolean = false;
   datoTraducido: string;
 
-  constructor(private seleccionCategoria: SeleccionCategoriaService, private http:HttpClient, private router:Router){
+  constructor(private seleccionCategoria: SeleccionCategoriaService, private http:HttpClient, private router:Router, private adminServicio:AdminService){
       
   }
 
@@ -23,6 +24,13 @@ export class PaginaPrincipalComponent {
       document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
   }
 
+  perfil(){
+    if(this.adminServicio.hayUsuarioLogeado){
+      this.router.navigate(['/gestion-usuario'])
+    }else{
+      this.router.navigate(['/login'])
+    }
+  }
   guardarSeleccion(dato : string){
       let selec;
       if(dato == 'DZA'){

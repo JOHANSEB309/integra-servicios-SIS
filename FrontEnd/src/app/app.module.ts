@@ -13,6 +13,7 @@ import { DevolucionesComponent } from './devoluciones/devoluciones.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IntegracionComponent } from './integracion/integracion.component';
+//import { GestionarUsuarioComponent } from './gestion-usuario/gestion-usuario.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IntegracionComponent } from './integracion/integracion.component';
     DevolucionesComponent,
     PrestamosComponent,
     IntegracionComponent
+    //GestionarUsuarioComponent
   ],
   imports: [
     BrowserModule,
