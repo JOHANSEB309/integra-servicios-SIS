@@ -6,100 +6,54 @@ import { AdminService } from '../admin.service';
 import { historialReservaResponse, reservaActivaResponse } from '../modelos/responses';
 
 @Component({
-  selector: 'prestamos-reservas',
+  selector: 'app-prestamos',
   templateUrl: './prestamos.component.html',
   styleUrl: './prestamos.component.css'
 })
 export class PrestamosComponent {
 
-  listaReservaActiva : Array<any>
-  listaHistorialReserva: Array<any>
+  prestamoForm : FormGroup
   hayError: boolean = false;
   mensajeError:string;
 
-  constructor(private http : HttpClient,private  fb:FormBuilder, private router:Router, private adminServicio:AdminService){
-
+  constructor(private fb: FormBuilder, private prestamoService: Prestamos, private router: Router) {
+    this.prestamoForm = this.fb.group({
+      id_reserva: ['', Validators.required],
+      id_empleado: ['', Validators.required],
+      fecha_prestamo: ['', Validators.required],
+      hora_prestamo: ['', Validators.required]
+    });
   }
   
   ngOnInit(): void {
 
     if(this.adminServicio.hayUsuarioLogeado){
-      this.router.navigate(['/administrar-reservas'])
+      this.router.navigate(['/prestamos'])
     }else{
       this.router.navigate(['/login'])
     }
 
-    this.obtenerReservasActivas();
-    this.obtenerHistorialReservas();
-      
-
   }
 
-  obtenerReservasActivas(){
-    this.http.get<reservaActivaResponse>("http://127.0.0.1:8000/listaReservaActiva").subscribe(
-      {
-        next:(res)=>{
-          this.listaReservaActiva = res.data
-          console.log(this.listaReservaActiva)
+  registrarPrestamo() {
+    if (this.prestamoForm.valid) {
+      this.prestamoService.registrarPrestamo(this.prestamoForm.value).subscribe({
+        next: (res) => {
+          alert('Préstamo registrado exitosamente');
+          this.router.navigate(['/pagina-principal-empleado']); // Redirigir a otra página si es necesario
         },
-        error: (error) => {
-          console.log(error)
+        error: (err) => {
+          this.hayError = true;
+          this.mensajeError = 'Error al registrar el préstamo';
+          console.error(err);
         }
-      })
-  }
-  
-  obtenerHistorialReservas(){
-    this.http.get<historialReservaResponse>("http://127.0.0.1:8000/listaHistorialReserva").subscribe(
-      {
-        next:(res)=>{
-          this.listaHistorialReserva = res.data
-          console.log(this.listaHistorialReserva)
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
-  }
-
-  cancelarReserva(dato:string){
-    this.obtenerReservasActivas();
-    this.obtenerHistorialReservas();
-    
-    const datosFormulario = {
-      idReserva: dato
+      });
+    } else {
+      this.hayError = true;
+      this.mensajeError = 'Por favor, completa todos los campos requeridos';
     }
-    console.log(datosFormulario)
-    this.hayError = false
-    this.http.post("http://127.0.0.1:8000/cancelarReserva",datosFormulario).subscribe(
-      {
-        next: res => this.mostrarError("Cancelar exitoso!!!!"),
-        error: err => this.mostrarError("Error al cancelar reserva")
-      })
-
-    this.obtenerReservasActivas();
-    this.obtenerHistorialReservas();
-      
   }
 
-  terminarReserva(dato:string){
-    this.obtenerReservasActivas();
-    this.obtenerHistorialReservas();
-
-    const datosFormulario = {
-      idReserva: dato
-    }
-    console.log(datosFormulario)
-    this.hayError = false
-    this.http.post("http://127.0.0.1:8000/terminarReserva",datosFormulario).subscribe(
-      {
-        next: res => this.mostrarError("Terminar exitoso!!!!"),
-        error: err => this.mostrarError("Error al terminar reserva")
-      })
-
-    this.obtenerReservasActivas();
-    this.obtenerHistorialReservas();
-      
-  }
 
   mostrarError(mensaje:string){
     this.hayError = true

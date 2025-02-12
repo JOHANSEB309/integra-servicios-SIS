@@ -63,64 +63,28 @@
   </div>
   <div class="content">
     <div class="container">
-      <div class="prestamos" id="prestamos">
-        <h2 class="mb-5">Ver Reservas:</h2>
-
-        <div class="table-responsive custom-table-responsive">
-          <table class="table custom-table">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">ID Usuario</th>
-                <th scope="col">Recurso</th>
-                <th scope="col">Fecha Reserva</th>
-                <th scope="col">Horario reservado</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Detalle</th>
-                <th scope="col">Registrar Prestamo</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let reserva of listaReservaActiva">
-              <tr scope="row">
-                <td>{{ reserva[0] }}</td>
-                <td>
-                  {{ reserva[1] }}
-                  <small class="d-block">Descripcion: {{ reserva[2] }}</small>
-                  <small class="d-block">Detalles: {{ reserva[3] }}</small>
-                </td>
-                <td>{{ reserva[4] }}</td>
-                <td>
-                  {{ reserva[5] }}<br />
-                  - <br />{{ reserva[6] }}
-                </td>
-                <td>{{ reserva[7] }}</td>
-                <td>{{ reserva[8] }}</td>
-                <td>
-                  <button
-                    class="button-3"
-                    role="button"
-                    (click)="cancelarReserva(reserva[0])"
-                  >
-                    Cancelar reserva
-                  </button>
-                </td>
-                <td>
-                  <button
-                    class="button-5"
-                    role="button"
-                    (click)="terminarReserva(reserva[0])"
-                  >
-                    Terminar reserva
-                  </button>
-                </td>
-              </tr>
-              <tr class="spacer">
-                <td colspan="100"></td>
-              </tr>
-            </tbody>
-          </table>
+      <h2>Registrar Préstamo</h2>
+      <form [formGroup]="prestamoForm" (ngSubmit)="registrarPrestamo()">
+        <div class="form-group">
+          <label for="id_reserva">ID Reserva</label>
+          <input type="text" id="id_reserva" formControlName="id_reserva" class="form-control" />
         </div>
-      </div>
+        <div class="form-group">
+          <label for="id_empleado">ID Empleado</label>
+          <input type="text" id="id_empleado" formControlName="id_empleado" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="fecha_prestamo">Fecha Préstamo</label>
+          <input type="date" id="fecha_prestamo" formControlName="fecha_prestamo" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="hora_prestamo">Hora Préstamo</label>
+          <input type="time" id="hora_prestamo" formControlName="hora_prestamo" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Préstamo</button>
+      </form>
+      <div *ngIf="hayError" class="alert alert-danger mt-3">
+        {{ mensajeError }}
     </div>
     <div class="container">
       <div class="historial" id="historial">
